@@ -1,4 +1,4 @@
-# Scrapy settings for dajiangdahe project
+# Scrapy settings for audiobooks project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -7,14 +7,14 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = 'dajiangdahe'
+BOT_NAME = 'audiobooks'
 
-SPIDER_MODULES = ['dajiangdahe.spiders']
-NEWSPIDER_MODULE = 'dajiangdahe.spiders'
+SPIDER_MODULES = ['audiobooks.spiders']
+NEWSPIDER_MODULE = 'audiobooks.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'dajiangdahe (+http://www.yourdomain.com)'
+#USER_AGENT = 'audiobooks (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
@@ -47,13 +47,13 @@ DEFAULT_REQUEST_HEADERS = {
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    'dajiangdahe.middlewares.DajiangdaheSpiderMiddleware': 543,
+#    'audiobooks.middlewares.DajiangdaheSpiderMiddleware': 543,
 #}
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #DOWNLOADER_MIDDLEWARES = {
-#    'dajiangdahe.middlewares.DajiangdaheDownloaderMiddleware': 543,
+#    'audiobooks.middlewares.DajiangdaheDownloaderMiddleware': 543,
 #}
 
 # Enable or disable extensions
@@ -65,7 +65,7 @@ DEFAULT_REQUEST_HEADERS = {
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   'dajiangdahe.pipelines.DajiangdahePipeline': 300,
+   'audiobooks.pipelines.DajiangdahePipeline': 300,
 }
 FILES_STORE = '/home/ty263/temp/djdh'
 

@@ -3,7 +3,7 @@ import re
 import time
 from scrapy import Request
 
-from dajiangdahe.items import DajiangdaheItem
+from audiobooks.items import DajiangdaheItem
 
 
 class AudiobookSpider(scrapy.Spider):
@@ -52,7 +52,7 @@ class AudiobookSpider(scrapy.Spider):
     def parse_episodes_number(self, response):
         episode_number = len(response.css("div.list ul li a").getall())
 
-        for i in range(1, episode_number + 1):
+        for i in range(401, episode_number + 1):
             index = str(i).rjust(3, '0')
             audiobook_url = self.base_url + index + '.mp3' + '?key=' + self.key_string
             self.audiobook_dict[index] = audiobook_url

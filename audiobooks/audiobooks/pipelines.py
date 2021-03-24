@@ -26,16 +26,16 @@ class DajiangdahePipeline(FilesPipeline):
     #     for file_url in adapter['file_urls']:
     #         yield scrapy.Request(file_url)
 
-    # def item_completed(self, results, item, info):
-    #     storage_dir = get_project_settings().get('FILES_STORE')
-    #     file_name = [x['path'] for ok, x in results if ok]
-    #     audio = EasyMP3(os.path.join(storage_dir, file_name[0]))
-    #     audio["title"] = file_name
-    #     audio["artist"] = '读客熊猫君'
-    #     audio["album"] = '大江大河'
-    #     audio["genre"] = ''
-    #     audio.pprint()
-    #     audio.save()
-    #
-    #     return item
+    def item_completed(self, results, item, info):
+        storage_dir = get_project_settings().get('FILES_STORE')
+        file_name = [x['path'] for ok, x in results if ok]
+        audio = EasyMP3(os.path.join(storage_dir, file_name[0]))
+        audio["title"] = file_name
+        audio["artist"] = '读客熊猫君'
+        audio["album"] = '大江大河'
+        audio["genre"] = ''
+        audio.pprint()
+        audio.save()
+
+        return item
 

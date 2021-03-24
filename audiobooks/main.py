@@ -2,8 +2,8 @@ from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
 
 
-from dajiangdahe.spiders.audiobook_spider import AudiobookSpider
-from zipfiles.zipfiles.spiders.NirsoftSpider import NirsoftSpider
+from audiobooks.spiders.audiobook_spider import AudiobookSpider
+
 
 if __name__ == '__main__':
     process = CrawlerProcess(get_project_settings())
