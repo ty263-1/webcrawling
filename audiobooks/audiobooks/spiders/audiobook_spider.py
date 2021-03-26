@@ -19,6 +19,10 @@ class AudiobookSpider(scrapy.Spider):
 
     key_string = ''
 
+    format_string = ''
+
+    start_episode_number = 1
+
     def start_requests(self):
         yield Request.from_curl(
                     "curl 'https://img.tingchina.com/play/h5_jsonp.asp?0.11683375963617659' \
@@ -52,7 +56,7 @@ class AudiobookSpider(scrapy.Spider):
     def parse_episodes_number(self, response):
         episode_number = len(response.css("div.list ul li a").getall())
 
-        for i in range(401, episode_number + 1):
+        for i in range(self.start_episode_number, episode_number + 1):
             index = str(i).rjust(3, '0')
             audiobook_url = self.base_url + index + '.mp3' + '?key=' + self.key_string
             self.audiobook_dict[index] = audiobook_url
