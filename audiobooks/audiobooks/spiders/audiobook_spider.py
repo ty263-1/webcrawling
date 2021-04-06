@@ -1,16 +1,18 @@
+from abc import abstractmethod, ABC
+
 import scrapy
 import re
-import time
+
 from scrapy import Request
 
-from audiobooks.items import DajiangdaheItem
+from audiobooks.items import AudiobookItem
 
 
-class AudiobookSpider(scrapy.Spider):
+class AudiobookSpider(scrapy.Spider, ABC):
     name = "audiobook"
 
-    web_url = 'https://www.tingchina.com/yousheng/disp_31046.htm'
-    base_url = 'https://t3344.tingchina.com/yousheng/%E5%AE%98%E5%9C%BA%E5%95%86%E6%88%98/%E5%A4%A7%E6%B1%9F%E5%A4%A7%E6%B2%B3/'
+    # web_url = 'https://www.tingchina.com/yousheng/disp_31046.htm'
+    # base_url = 'https://t3344.tingchina.com/yousheng/%E5%AE%98%E5%9C%BA%E5%95%86%E6%88%98/%E5%A4%A7%E6%B1%9F%E5%A4%A7%E6%B2%B3/'
     h5_jsonp_url = 'https://img.tingchina.com/play/h5_jsonp.asp?0.11683375963617659'
 
     audiobook_dict = {}
@@ -19,9 +21,7 @@ class AudiobookSpider(scrapy.Spider):
 
     key_string = ''
 
-    format_string = ''
-
-    start_episode_number = 1
+    start_episode_number = 75
 
     def start_requests(self):
         yield Request.from_curl(
@@ -51,21 +51,59 @@ class AudiobookSpider(scrapy.Spider):
         result = p.search(response.text)
         self.key_string = result.group(1)
 
-        yield scrapy.Request(self.web_url, self.parse_episodes_number)
+        yield scrapy.Request(self.web_url, self.parse)
 
-    def parse_episodes_number(self, response):
+    def parse(self, response, **kwargs):
         episode_number = len(response.css("div.list ul li a").getall())
 
         for i in range(self.start_episode_number, episode_number + 1):
-            index = str(i).rjust(3, '0')
+            index = str(i).rjust(self.name_len, '0')
             audiobook_url = self.base_url + index + '.mp3' + '?key=' + self.key_string
             self.audiobook_dict[index] = audiobook_url
 
         for key, value in self.audiobook_dict.items():
-            item = DajiangdaheItem()
+            item = AudiobookItem()
             item['file_urls'] = [value]
+            item['album_name'] = self.album_name
+            item['artist_name'] = ''
             yield item
 
-        # item = DajiangdaheItem()
-        # item['file_urls'] = ['https://t3344.tingchina.com/yousheng/%E5%AE%98%E5%9C%BA%E5%95%86%E6%88%98/%E5%A4%A7%E6%B1%9F%E5%A4%A7%E6%B2%B3/001.mp3?key=cb6a0277a222c2079c5fdb79783a09ac_667011093']
-        # yield item
+    @property
+    @abstractmethod
+    def base_url(self):
+        raise NotImplementedError()
+
+    @base_url.setter
+    @abstractmethod
+    def base_url(self, value):
+        raise NotImplementedError()
+
+    @property
+    @abstractmethod
+    def name_len(self):
+        raise NotImplementedError()
+
+    @name_len.setter
+    @abstractmethod
+    def name_len(self, value):
+        raise NotImplementedError()
+
+    @property
+    @abstractmethod
+    def web_url(self):
+        raise NotImplementedError()
+
+    @web_url.setter
+    @abstractmethod
+    def web_url(self, value):
+        raise NotImplementedError()
+
+    @property
+    @abstractmethod
+    def album_name(self):
+        raise NotImplementedError()
+
+    @album_name.setter
+    @abstractmethod
+    def album_name(self, value):
+        raise NotImplementedError()

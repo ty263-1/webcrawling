@@ -65,9 +65,9 @@ DEFAULT_REQUEST_HEADERS = {
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   'audiobooks.pipelines.DajiangdahePipeline': 300,
+   'audiobooks.pipelines.AudiobookItemPipeline': 300,
 }
-FILES_STORE = '/home/ty263/temp/djdh'
+# FILES_STORE = '/home/ty263/temp/djdh'
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html

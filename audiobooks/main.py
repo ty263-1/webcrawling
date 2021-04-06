@@ -1,12 +1,17 @@
+import logging
+
 from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
 
+from audiobooks.spiders.xzjbzr_spider import XZJBZRSpider
 
-from audiobooks.spiders.audiobook_spider import AudiobookSpider
-
+logger = logging.getLogger(__name__)
 
 if __name__ == '__main__':
-    process = CrawlerProcess(get_project_settings())
-    process.crawl(AudiobookSpider)
-    # process.crawl(NirsoftSpider)
+    settings = get_project_settings()
+    # settings.set('FILES_STORE', '/home/ty263/temp/xzjbzr')
+    process = CrawlerProcess(settings)
+    process.crawl(XZJBZRSpider)
+
+    logger.info("starting ..........")
     process.start()

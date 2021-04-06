@@ -6,6 +6,8 @@
 import scrapy
 
 
-class DajiangdaheItem(scrapy.Item):
+class AudiobookItem(scrapy.Item):
     file_urls = scrapy.Field()
     files = scrapy.Field()
+    album_name = scrapy.Field()
+    artist_name = scrapy.Field()
