@@ -7,6 +7,7 @@ import scrapy
 
 
 class AudiobookItem(scrapy.Item):
+    file_name = scrapy.Field()
     file_urls = scrapy.Field()
     files = scrapy.Field()
     album_name = scrapy.Field()

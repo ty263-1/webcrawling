@@ -63,6 +63,7 @@ class AudiobookSpider(scrapy.Spider, ABC):
 
         for key, value in self.audiobook_dict.items():
             item = AudiobookItem()
+            item['file_name'] = key + ".mp3"
             item['file_urls'] = [value]
             item['album_name'] = self.album_name
             item['artist_name'] = ''

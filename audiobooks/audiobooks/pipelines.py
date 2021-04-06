@@ -20,7 +20,7 @@ logger = logging.getLogger(__name__)
 
 class AudiobookItemPipeline(FilesPipeline):
     def file_path(self, request, response=None, info=None, *, item=None):
-        file_name: str = request.url.split("/")[-1][:7]
+        file_name: str = item['file_name']
         return file_name
 
     # def get_media_requests(self, item, info):
@@ -36,7 +36,7 @@ class AudiobookItemPipeline(FilesPipeline):
         try:
             audio = EasyMP3(os.path.join(storage_dir, file_name[0]))
         except IndexError:
-            logger.debug(file_name)
+            logger.warn(file_name)
         audio["title"] = file_name
         audio["artist"] = item['artist_name']
         audio["album"] = item['album_name']
